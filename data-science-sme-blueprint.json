@@ -32,6 +32,45 @@
       }
     },
     {
+      "spark2-defaults": {
+        "properties_attributes": {},
+        "properties": {
+          "spark.sql.hive.hiveserver2.jdbc.url": "jdbc:hive2://%HOSTGROUP::master%:2181/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2",
+          "spark.sql.hive.hiveserver2.jdbc.url.principal": "hive/_HOST@EC2.INTERNAL",
+          "spark.datasource.hive.warehouse.metastoreUri": "thrift://%HOSTGROUP::master%:9083",
+          "spark.datasource.hive.warehouse.load.staging.dir": "/tmp",
+          "spark.hadoop.hive.zookeeper.quorum": "%HOSTGROUP::master%:2181"
+        }
+      }
+    },
+    {
+      "hive-interactive-env": {
+        "enable_hive_interactive": "false",
+        "hive_security_authorization": "None"
+      }
+    },
+    {
+      "hive-interactive-site": {
+        "hive.exec.orc.split.strategy": "BI",
+        "hive.stats.fetch.bitvector": "true",
+        "hive.metastore.rawstore.impl": "org.apache.hadoop.hive.metastore.cache.CachedStore"
+      }
+    },
+    {
+      "hive-site": {
+      	"hive.metastore.warehouse.dir": "/apps/hive/warehouse",
+        "hive.exec.compress.output": "true",
+        "hive.merge.mapfiles": "true",
+        "hive.server2.tez.initialize.default.sessions": "true",
+        "hive.server2.transport.mode": "http",
+        "hive.metastore.dlm.events": "true",
+        "hive.metastore.transactional.event.listeners": "org.apache.hive.hcatalog.listener.DbNotificationListener",
+        "hive.repl.cm.enabled": "true",
+        "hive.repl.cmrootdir": "/apps/hive/cmroot",
+        "hive.repl.rootdir": "/apps/hive/repl"
+      }
+    },
+    {
       "hdfs-site": {
         "properties_attributes": {},
         "properties": {
@@ -82,6 +121,15 @@
         },
         {
           "name": "DATANODE"
+        },
+        {
+          "name": "HIVE_SERVER"
+        },
+        {
+          "name": "HIVE_METASTORE"
+        },
+        {
+          "name": "HIVE_CLIENT"
         },
         {
           "name": "YARN_CLIENT"

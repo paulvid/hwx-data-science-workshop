@@ -13,26 +13,26 @@ installUtils () {
 	pip install pandas
 	
 	
-	sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-	sudo yum install R R-devel libcurl-devel openssl-devel
-	sudo R -e “install.packages(‘devtools’, repos = ‘http://cran.us.r-project.org’)”
-	sudo R -e “install.packages(‘knitr’, repos = ‘http://cran.us.r-project.org’)”
-	sudo R -e “install.packages(‘ggplot2’, repos = ‘http://cran.us.r-project.org’)”
-	sudo R -e “install.packages(c(‘devtools’,‘mplot’, ‘googleVis’), repos = ‘http://cran.us.r-project.org’); require(devtools); install_github(‘ramnathv/rCharts’)”
-	sudo R -e “install.packages(‘glmnet’, repos = ‘http://cran.us.r-project.org’)”
-	sudo R -e “install.packages(‘pROC’, repos = ‘http://cran.us.r-project.org’)”
-	sudo R -e “install.packages(‘data.table’, repos = ‘http://cran.us.r-project.org’)”
-	sudo R -e “install.packages(‘caret’, repos = ‘http://cran.us.r-project.org’)”
-	sudo R -e “install.packages(‘sqldf’, repos = ‘http://cran.us.r-project.org’)”
-	sudo R -e “install.packages(‘wordcloud’, repos = ‘http://cran.us.r-project.org’)”
-	sudo R -e “install.packages(‘roxygen2’, repos = ‘http://cran.us.r-project.org’)”
-	sudo R -e “install.packages(‘sparklyr’, repos = ‘http://cran.us.r-project.org’)”
-	sudo R -e “install.packages(‘pipeR’, repos = ‘http://cran.us.r-project.org’)”
-	sudo R -e “install.packages(c(‘devtools’), repos = ‘http://cran.us.r-project.org’); require(devtools); install_github(‘IRkernel/repr’)”
-	sudo R -e “install.packages(‘htmltools’, repos = ‘http://cran.us.r-project.org’)”
-	sudo R -e “install.packages(‘base64enc’, repos = ‘http://cran.us.r-project.org’)”
-	sudo R -e “install.packages(‘dplyr’, repos = ‘http://cran.us.r-project.org’)”
-	sudo R -e “install.packages(‘repr’, repos = ‘http://cran.us.r-project.org’)”
+	yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+	yum install -y R R-devel libcurl-devel openssl-devel
+	R -e "install.packages('devtools', repos = 'http://cran.us.r-project.org')"
+	R -e "install.packages('knitr', repos = 'http://cran.us.r-project.org')"
+	R -e "install.packages('ggplot2', repos = 'http://cran.us.r-project.org')"
+	R -e "install.packages(c('devtools','mplot', 'googleVis'), repos = 'http://cran.us.r-project.org'); require(devtools); install_github('ramnathv/rCharts')"
+	R -e "install.packages('glmnet', repos = 'http://cran.us.r-project.org')"
+	R -e "install.packages('pROC', repos = 'http://cran.us.r-project.org')"
+	R -e "install.packages('data.table', repos = 'http://cran.us.r-project.org')"
+	R -e "install.packages('caret', repos = 'http://cran.us.r-project.org')"
+	R -e "install.packages('sqldf', repos = 'http://cran.us.r-project.org')"
+	R -e "install.packages('wordcloud', repos = 'http://cran.us.r-project.org')"
+	R -e "install.packages('roxygen2', repos = 'http://cran.us.r-project.org')"
+	R -e "install.packages('sparklyr', repos = 'http://cran.us.r-project.org')"
+	R -e "install.packages('pipeR', repos = 'http://cran.us.r-project.org')"
+	R -e "install.packages(c('devtools'), repos = 'http://cran.us.r-project.org'); require(devtools); install_github('IRkernel/repr')"
+	R -e "install.packages('htmltools', repos = 'http://cran.us.r-project.org')"
+	R -e "install.packages('base64enc', repos = 'http://cran.us.r-project.org')"
+	R -e "install.packages('dplyr', repos = 'http://cran.us.r-project.org')"
+	R -e "install.packages('repr', repos = 'http://cran.us.r-project.org')"
 	
 }
 
@@ -572,7 +572,7 @@ loadPersoDetectionAddOns (){
 export AMBARI_HOST=$(hostname -f)
 
 export CLUSTER_NAME=$(curl -u admin:admin -X GET http://$AMBARI_HOST:8080/api/v1/clusters |grep cluster_name|grep -Po ': "(.+)'|grep -Po '[a-zA-Z0-9\-_!?.]+')
-echo "*********************************AMBARI HOST IS: $NIFI_HOST"
+echo "*********************************AMBARI HOST IS: $AMBARI_HOST"
 
 
 #echo "*********************************Waiting for cluster install to complete..."
@@ -594,8 +594,8 @@ echo "*********************************Install Utilities..."
 installUtils
 
 echo "*********************************Download Configurations"
-git https://github.com/kirkhas/datascience-workshop.git
-cd datascience-workshop
+git clone https://github.com/paulvid/hwx-data-science-workshop.git
+cd hwx-data-science-workshop
 
 export ROOT_PATH=`pwd`
 echo "*********************************ROOT PATH IS: $ROOT_PATH"
@@ -606,20 +606,15 @@ token=`curl -i --data 'userName=admin&password=H0rt0nw0rksDataScienceW0rsh0p' -X
 
 echo "*********************************Loading notes..."
 
-MUSHROOM_CLASSIFIER=`cat $ROOT_PATH/zeppelin-notebooks/MushroomClassifier.json`
-CENSUS_ECON=`cat $ROOT_PATH/zeppelin-notebooks/CensusECON.json`
-SBIR=`cat $ROOT_PATH/zeppelin-notebooks/SBIR.json`
+curl -X POST http://$AMBARI_HOST:9995/api/notebook/import   -H 'Content-Type: application/json'   -b "JSESSIONID="$token"; Path=/; HttpOnly"  \
+ -d @$ROOT_PATH/zeppelin-notebooks/MushroomClassifier.json
+ 
+ curl -X POST http://$AMBARI_HOST:9995/api/notebook/import   -H 'Content-Type: application/json'   -b "JSESSIONID="$token"; Path=/; HttpOnly"  \
+ -d @$ROOT_PATH/zeppelin-notebooks/CensusECON.json
 
-
-curl -X POST \
-  http://$AMBARI_HOST:9995/api/notebook/import \
-  -H 'Content-Type: application/json' \
-  -b "JSESSIONID="$token"; Path=/; HttpOnly" \
-  -d "'"$MUSHROOM_CLASSIFIER"'"
-
-
-
-#echo "********************************* Configuring Nifi Template"
+curl -X POST http://$AMBARI_HOST:9995/api/notebook/import   -H 'Content-Type: application/json'   -b "JSESSIONID="$token"; Path=/; HttpOnly"  \
+ -d @$ROOT_PATH/zeppelin-notebooks/SBIR.json
+ #echo "********************************* Configuring Nifi Template"
 #configureNifiTempate
 #
 #echo "********************************* Adding Symbolic Links to Atlas Client..."
