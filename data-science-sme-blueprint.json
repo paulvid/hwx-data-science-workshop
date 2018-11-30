@@ -44,9 +44,17 @@
       }
     },
     {
+      "ranger-hive-audit": {
+        "properties_attributes": {},
+        "properties": {
+          "xasecure.audit.destination.hdfs.file.rollover.sec": "600"
+        }
+      }
+    },
+    {
       "hive-interactive-env": {
         "enable_hive_interactive": "false",
-        "hive_security_authorization": "None"
+        "hive_security_authorization": "Ranger"
       }
     },
     {
@@ -71,6 +79,39 @@
       }
     },
     {
+      "ranger-admin-site": {
+        "properties_attributes": {},
+        "properties": {
+          "ranger.jpa.jdbc.url": "jdbc:postgresql://localhost:5432/ranger"
+        }
+      }
+    },
+    {
+      "ranger-env": {
+        "properties_attributes": {},
+        "properties": {
+          "xasecure.audit.destination.hdfs.dir": "/apps/ranger/audit",
+          "ranger_admin_password": "{{{ general.password }}}",
+          "keyadmin_user_password": "{{{ general.password }}}",
+          "rangertagsync_user_password": "{{{ general.password }}}",
+          "rangerusersync_user_password": "{{{ general.password }}}",
+          "is_solrCloud_enabled": "true",
+          "ranger-hdfs-plugin-enabled": "Yes",
+          "ranger-hive-plugin-enabled": "Yes",
+          "ranger-atlas-plugin-enabled": "Yes",
+          "ranger-knox-plugin-enabled": "Yes"
+        }
+      }
+    },
+    {
+      "atlas-env": {
+        "properties_attributes": {},
+        "properties": {
+          "atlas.admin.password": "{{{ general.password }}}"
+        }
+      }
+    },
+    {
       "hdfs-site": {
         "properties_attributes": {},
         "properties": {
@@ -83,6 +124,18 @@
       "name": "master",
       "cardinality": "1",
       "components": [
+        {
+          "name": "ATLAS_SERVER"
+        },
+        {
+          "name": "RANGER_TAGSYNC"
+        },
+        {
+          "name": "RANGER_USERSYNC"
+        },
+        {
+          "name": "RANGER_ADMIN"
+        },
         {
           "name": "ZOOKEEPER_SERVER"
         },

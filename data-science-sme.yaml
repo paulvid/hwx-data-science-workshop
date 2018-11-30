@@ -13,7 +13,7 @@ infra:
     ver: 3.0.1.0-187
     url: http://public-repo-1.hortonworks.com/HDP/centos7/3.x/updates/3.0.1.0/HDP-3.0.1.0-187.xml
 blueprint: 
-	name: perso-detection-blueprint.json
+	name: data-science-workshop-blueprint.json
 recipe:
 - name: init-metastores.sh
 typ: PRE_AMBARI_START
