@@ -98,16 +98,8 @@
           "is_solrCloud_enabled": "true",
           "ranger-hdfs-plugin-enabled": "Yes",
           "ranger-hive-plugin-enabled": "Yes",
-          "ranger-atlas-plugin-enabled": "Yes",
+          "ranger-atlas-plugin-enabled": "No",
           "ranger-knox-plugin-enabled": "Yes"
-        }
-      }
-    },
-    {
-      "atlas-env": {
-        "properties_attributes": {},
-        "properties": {
-          "atlas.admin.password": "{{{ general.password }}}"
         }
       }
     },
@@ -125,9 +117,6 @@
       "cardinality": "1",
       "components": [
         {
-          "name": "ATLAS_SERVER"
-        },
-        {
           "name": "RANGER_TAGSYNC"
         },
         {
@@ -135,6 +124,9 @@
         },
         {
           "name": "RANGER_ADMIN"
+        },
+        {
+          "name": "INFRA_SOLR"
         },
         {
           "name": "ZOOKEEPER_SERVER"
@@ -192,6 +184,12 @@
         },
         {
           "name": "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name": "TEZ_CLIENT"
+        },
+        {
+          "name": "INFRA_SOLR_CLIENT"
         },
         {
           "name": "MAPREDUCE2_CLIENT"
