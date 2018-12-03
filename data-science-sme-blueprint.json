@@ -26,6 +26,7 @@
         "properties": {
           "yarn.scheduler.capacity.root.queues": "default",
           "yarn.scheduler.capacity.root.capacity": "100",
+          "yarn.scheduler.capacity.root.maximum-capacity": "100",
           "yarn.scheduler.capacity.root.default.capacity": "100",
           "yarn.scheduler.capacity.root.default.maximum-capacity": "100"
         }
@@ -190,6 +191,9 @@
         },
         {
           "name": "INFRA_SOLR_CLIENT"
+        },
+        {
+          "name": "NODEMANAGER"
         },
         {
           "name": "MAPREDUCE2_CLIENT"
