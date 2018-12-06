@@ -1,0 +1,120 @@
+{
+  "general": {
+    "name": "",
+    "credentialName": "pvidal-local-cloudbreak"
+  },
+  "placement": {
+    "availabilityZone": "us-east-1a",
+    "region": "us-east-1"
+  },
+  "parameters": {},
+  "inputs": {},
+  "customDomain": {
+    "clusterNameAsSubdomain": false,
+    "hostgroupNameAsHostname": false
+  },
+  "tags": {
+    "userDefinedTags": {}
+  },
+  "instanceGroups": [
+    {
+      "nodeCount": 1,
+      "group": "master",
+      "type": "GATEWAY",
+      "parameters": {},
+      "template": {
+        "volumeCount": 1,
+        "volumeSize": 100,
+        "rootVolumeSize": 50,
+        "parameters": {
+          "encrypted": false,
+          "platformType": "AWS",
+          "type": "NONE"
+        },
+        "volumeType": "standard",
+        "instanceType": "m5.2xlarge"
+      },
+      "securityGroup": {
+        "securityGroupIds": [],
+        "securityRules": [
+          {
+            "subnet": "0.0.0.0/0",
+            "ports": "9443",
+            "protocol": "tcp"
+          },
+          {
+            "subnet": "0.0.0.0/0",
+            "ports": "22",
+            "protocol": "tcp"
+          },
+          {
+            "subnet": "0.0.0.0/0",
+            "ports": "8443",
+            "protocol": "tcp"
+          },
+          {
+            "subnet": "71.178.246.102/32",
+            "ports": "1-65535",
+            "protocol": "tcp"
+          }
+        ]
+      },
+      "recipeNames": [
+        "data-science-workshop-post-install-setup",
+        "data-science-workshop-init-metastores"
+      ],
+      "recoveryMode": "MANUAL"
+    }
+  ],
+  "stackAuthentication": {
+    "publicKeyId": "_field"
+  },
+  "network": {
+    "parameters": {
+      "subnetId": "subnet-dff56386",
+      "vpcId": "vpc-d85076bd"
+    }
+  },
+  "imageSettings": {
+    "imageCatalog": "cloudbreak-default",
+    "imageId": "2c5cd6ea-7d5b-4004-73f2-27ad2e1ce7a9"
+  },
+  "cluster": {
+    "emailNeeded": false,
+    "rdsConfigNames": [],
+    "ambari": {
+      "blueprintName": "data-science-workshop",
+      "gateway": {
+        "topologies": [
+          {
+            "topologyName": "dp-proxy",
+            "exposedServices": [
+              "AMBARI"
+            ]
+          }
+        ],
+        "gatewayType": "INDIVIDUAL",
+        "ssoType": "NONE"
+      },
+      "enableSecurity": false,
+      "userName": "admin",
+      "password": "WeL0veDataScience!",
+      "validateRepositories": false,
+      "ambariStackDetails": {
+        "stack": "HDP",
+        "version": "3.0",
+        "stackRepoId": "HDP",
+        "enableGplRepo": false,
+        "verify": false,
+        "repositoryVersion": "3.0.1.0-187",
+        "versionDefinitionFileUrl": "http://public-repo-1.hortonworks.com/HDP/centos7/3.x/updates/3.0.1.0/HDP-3.0.1.0-187.xml",
+        "mpacks": []
+      },
+      "ambariRepoDetailsJson": {
+        "version": "2.7.1.0",
+        "baseUrl": "http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.7.1.0",
+        "gpgKeyUrl": "http://public-repo-1.hortonworks.com/ambari/centos7/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins"
+      }
+    }
+  }
+}

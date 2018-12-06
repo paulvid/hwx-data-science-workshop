@@ -16,4 +16,4 @@ blueprint:
 	name: data-science-workshop-blueprint.json
 recipe:
 - name: init-metastores.sh
-typ: PRE_AMBARI_START
+type: PRE_AMBARI_START
