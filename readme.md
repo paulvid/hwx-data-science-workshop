@@ -14,3 +14,7 @@ This bundle contains blueprints and recipe necessary for the creation of a singl
 
 * Cloudbreak 2.8.0
 * HDP 3.0.1
+
+## Authors
+
+* **Paul Vidal** - *Initial work* - [LinkedIn](https://www.linkedin.com/in/paulvid/)
