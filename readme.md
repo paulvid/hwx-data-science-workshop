@@ -1,7 +1,7 @@
 # Hortonworks Data Science Workshop Bundle
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/paulvid/hwx-data-science-workshop/master/HWX_LOGO.png" width="1224" height="500" align="middle">
+<img src="https://raw.githubusercontent.com/paulvid/hwx-data-science-workshop/master/HWX_LOGO.png">
 </div>
 
 ## Description
