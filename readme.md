@@ -1,5 +1,11 @@
 # Hortonworks Data Science Workshop Bundle
 
+<div align="center">
+<img src="https://raw.githubusercontent.com/paulvid/hwx-data-science-workshop/master/HWX_LOGO.png" width="1224" height="500" align="middle">
+</div>
+
+## Description
+
 This bundle contains blueprints and recipe necessary for the creation of a single node HDP cluster pre-loaded with Data Science Workshop Notebooks
 
 ## Content Description
